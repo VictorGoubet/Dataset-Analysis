@@ -11,12 +11,10 @@ app = Flask(__name__)
 def makecalc():
     data = request.get_json()
     prediction = np.array2string(model.predict(data))
-
     return jsonify(prediction)
 
 if __name__ == '__main__':
-    #modelfile = 'lda_model_LeagueIndex.pickle'
-    #modelfile = 'lr_model_LeagueIndex.pickle'
-    modelfile = 'Rforest_model_LeagueIndex.pickle'
+
+    modelfile = 'model.pickle'
     model = p.load(open(modelfile, 'rb'))
     app.run(debug=True, host='0.0.0.0')
