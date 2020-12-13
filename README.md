@@ -9,8 +9,8 @@ In our notebook we have followed the next steps:
 - Optimisation (Tunning)
 - Conclusion
 
-We obtain finally a score of **0.45** due to a sgnificant lack of data espacially for the level 8 players.
-A flask API is available to make prediction on your datas if you want.
+We obtain finally a score of **0.45** due to a significant lack of data especially for the level 8 players.
+A flask API is available to make predictions on your datas if you want.
 
 You can read the powerpoint which resume quickly the main problems, steps and reflexions we encountered.
 The notebook, being well commented, is self-sufficient. 
