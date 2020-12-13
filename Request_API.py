@@ -2,16 +2,34 @@ import requests
 import json
 import sklearn as sk
 import sklearn.preprocessing 
+import pandas as pd
+import math as m
 
 url = 'http://0.0.0.0:5000/api/'
 
-data = [[1,84.7086,0.0011134377,8.30923654734603e-05,2,0.0002409679,
-0.0003988434,0.0031242729,48.512,62.6064,4.5585,25,0.0012547,
-7,4.15461827367302e-05,0.00029913]]
+database = pd.read_csv("SkillCraft1_Dataset.csv", index_col="GameID")
+data = database.drop("LeagueIndex",axis=1)
+for col in ['Age', 'HoursPerWeek', 'TotalHours']:
+    data[col] = pd.to_numeric(data[col], errors = 'coerce')
+#And we set the nAn values to the mean : 
+data.fillna(data.mean(), inplace=True)
+#Chose the player you want to know the league Index predicted of : YOU CANT PUT IT [:]
+to_predict = [60,61,72,77,81,83,93]
+data = pd.DataFrame(data.loc[to_predict])
 
-print(data)
 
-j_data = json.dumps(data)
+j_data = data.to_json()
 headers = {'content-type': 'application/json', 'Accept-Charset': 'UTF-8'}
 r = requests.post(url, data=j_data, headers=headers)
+print(type(r.text))
 print(r, r.text)
+res= r.text[2:-3].split(" ")
+right = []
+for i in range(len(to_predict)):
+    if int(res[i])== database.at[to_predict[i], 'LeagueIndex']:
+        right.append(True)
+    else:
+        right.append(False)
+
+
+print(right)
