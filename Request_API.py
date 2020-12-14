@@ -5,16 +5,18 @@ import sklearn.preprocessing
 import pandas as pd
 import math as m
 
-url = 'http://0.0.0.0:5000/api/'
+url = 'http://localhost:5000/api'
 
 database = pd.read_csv("SkillCraft1_Dataset.csv", index_col="GameID")
-data = database.drop("LeagueIndex",axis=1)
+data = database.drop("LeagueIndex", axis=1)
+
 for col in ['Age', 'HoursPerWeek', 'TotalHours']:
     data[col] = pd.to_numeric(data[col], errors = 'coerce')
+
 #And we set the nAn values to the mean : 
 data.fillna(data.mean(), inplace=True)
 #Chose the player you want to know the league Index predicted of : YOU CANT PUT IT [:]
-to_predict = [60,61,72,77,81,83,93]
+to_predict = [60, 61, 72, 77, 81, 83, 93]
 data = pd.DataFrame(data.loc[to_predict])
 
 
@@ -26,7 +28,7 @@ print(r, r.text)
 res= r.text[2:-3].split(" ")
 right = []
 for i in range(len(to_predict)):
-    if int(res[i])== database.at[to_predict[i], 'LeagueIndex']:
+    if int(res[i]) == database.at[to_predict[i], 'LeagueIndex']:
         right.append(True)
     else:
         right.append(False)

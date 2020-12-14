@@ -6,8 +6,7 @@ import json
 
 app = Flask(__name__)
 
-
-@app.route('/api/', methods=['POST'])
+@app.route('/api', methods=['POST'])
 def makecalc():
     print("Let's Predict this players Index")
     data = request.get_json()
