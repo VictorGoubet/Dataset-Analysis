@@ -12,5 +12,7 @@ In our notebook we have followed the next steps:
 We obtain finally a score of **0.45** due to a significant lack of data especially for the level 8 players.
 A flask API is available to make predictions on your datas if you want.
 
+To request a prediction from our API the input must be composed of all the columns (minus the leagueIndex) and no missing data with the appropriate datatype (float or int depending on the column). Must be a panda DataFrame.
+
 You can read the powerpoint which resume quickly the main problems, steps and reflexions we encountered.
 The notebook, being well commented, is self-sufficient. 
