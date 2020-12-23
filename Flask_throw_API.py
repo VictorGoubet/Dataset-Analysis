@@ -6,11 +6,9 @@ import json
 
 app = Flask(__name__)
 
-@app.route('/api', methods=['POST'])
-def makecalc():
-    print("Let's Predict this players Index")
-    data = request.get_json()
-    print(data)
+
+
+def treat_data(data):
     treated = pd.DataFrame.from_dict(data)
 
 
@@ -20,14 +18,18 @@ def makecalc():
                             'ComplexUnitsMade',
                             'UniqueUnitsMade'],axis=1)
 
-    treated['log(APM)']  = np.log(treated['APM'])
-    treated['log(TotalHours)']  = np.log(treated['TotalHours'])
-    treated['log(ActionLatency)']  = np.log(treated['ActionLatency'])
-    treated['log(TotalMapExplored)']  = np.log(treated['TotalMapExplored'])
-
+    for column in ['APM','TotalHours','ActionLatency','TotalMapExplored']:
+        treated['log({})'.format(column)] = np.log(treated[column])
+    
 
     treated = treated.to_numpy()
+    return treated
 
+@app.route('/api', methods=['POST'])
+def makecalc():
+    print("Let's Predict this players Index")
+    data = request.get_json()
+    treated = treat_data(data)
     
     prediction = np.array2string(model.predict(treated))
     return jsonify(prediction)
