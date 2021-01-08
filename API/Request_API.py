@@ -5,30 +5,39 @@ import sklearn.preprocessing
 import pandas as pd
 import math as m
 
-url = 'http://localhost:5000/api'
+def get_response_request(data):
+    url = 'http://localhost:5000/API_request'
+    # Convert in json
+    j_data = json.dumps(data)
+    # Send request
+    headers = {'content-type': 'application/json', 'Accept-Charset': 'UTF-8'}
+    r = requests.post(url, data=j_data, headers=headers).text
+    r = list(map(int, r[2:-3].split(' ')))
+    return r
 
-def get_data():
-    # Import data to predict
-    data = pd.read_csv("./SkillCraft1_Dataset.csv", index_col="GameID")
-    data.drop("LeagueIndex", axis=1, inplace=True)
+if __name__ == '__main__':
+    # Example of sended data (here 2 rows)
+    data = {'Age':[21, 56],
+            'HoursPerWeek': [256, 6],
+            'TotalHours': [15, 2],
+            'APM': [54 ,23.5],
+            'SelectByHotkeys': [85.3, 0.3],
+            'AssignToHotkeys': [85.3, 1],
+            'UniqueHotkeys': [1, 3],
+            'UniqueHotkeys': [6, 3],
+            'MinimapAttacks': [7, 6],
+            'MinimapRightClicks': [85 ,33], 
+            'NumberOfPACs': [7, 3],
+            'GapBetweenPACs': [1, 1],
+            'ActionLatency': [5, 0.2],
+            'ActionsInPAC': [0.9, 6],
+            'TotalMapExplored': [7, 9],
+            'WorkersMade': [3, 6],
+            'UniqueUnitsMade': [152, 363],
+            'ComplexUnitsMade': [59, 62],
+            'ComplexAbilitiesUsed': [5, 6]}
+    response = get_response_request(data)
+    for i, pred in enumerate(response):
+        print(f'Prediction {i+1}: {pred}')
 
-    # Make appropriate convertions
-    for col in ['Age', 'HoursPerWeek', 'TotalHours']:
-        data[col] = pd.to_numeric(data[col], errors = 'coerce')
 
-    # Set the NaN values to the mean : 
-    data.fillna(data.mean(), inplace=True)
-
-    # Chose the player you want to know the predicted league Index:
-    to_predict = [60, 61, 72, 77, 81, 83, 93]
-    data = pd.DataFrame(data.loc[to_predict])
-    return data
-
-# Convert in json
-j_data = get_data().to_json()
-
-# Send request
-headers = {'content-type': 'application/json', 'Accept-Charset': 'UTF-8'}
-r = requests.post(url, data=j_data, headers=headers)
-
-print("Response: ", r.text)
