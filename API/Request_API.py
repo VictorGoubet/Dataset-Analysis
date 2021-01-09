@@ -24,7 +24,6 @@ if __name__ == '__main__':
             'SelectByHotkeys': [85.3, 0.3],
             'AssignToHotkeys': [85.3, 1],
             'UniqueHotkeys': [1, 3],
-            'UniqueHotkeys': [6, 3],
             'MinimapAttacks': [7, 6],
             'MinimapRightClicks': [85 ,33], 
             'NumberOfPACs': [7, 3],

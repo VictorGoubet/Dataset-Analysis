@@ -32,7 +32,6 @@ def response_form_page():
             'SelectByHotkeys': [float(request.form['SelectByHotkeys'])],
             'AssignToHotkeys': [float(request.form['AssignToHotkeys'])],
             'UniqueHotkeys': [float(request.form['UniqueHotkeys'])],
-            'UniqueHotkeys': [float(request.form['UniqueHotkeys'])],
             'MinimapAttacks': [float(request.form['MinimapAttacks'])],
             'MinimapRightClicks': [float(request.form['MinimapRightClicks'])], 
             'NumberOfPACs': [float(request.form['NumberOfPACs'])],
