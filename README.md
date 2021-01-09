@@ -14,7 +14,7 @@ A flask API is available to make predictions on your datas if you want.
 
 To request a prediction from our API the input must be composed of all the columns (minus the leagueIndex) and no missing data with the appropriate datatype (float or int depending on the column). Finally, it must be a dictionnary.  
 
-To use the API you have first to launch the server: ***./venv/Scripts/python.exe .\API\Server.py*** (You can build yourself the environment in the root folder thanks to the requirments.txt file)
+To use the API you have first to launch the server: ***./venv/Scripts/python.exe .\API\Server.py*** *(You can build yourself the environment in the root folder thanks to the requirments.txt file)*  
 Then you have two choices:
 - You can go on your favorite browser and go on ***localhost:5000/API_form***. You will have a form to fill and you will get a prediction !
 - Or, if you want to use the API as a developper, you can make a request on the ***localhost:5000/API_request*** url. A example of request is given in the ***Request_API.py*** file, you can launch this request by executing ***./venv/Scripts/python.exe .\API\Request_API.py***.
